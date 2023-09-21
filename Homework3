@@ -1,0 +1,1127 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{array}
+\usepackage{mathtools}
+\usepackage{amsthm,amssymb}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{float}
+
+\newenvironment{solution}
+  {\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+  {\end{proof}}
+
+\newcolumntype{C}{>{{}}c<{{}}}
+
+\title{Homework 3 MATH 5610}
+\author{Elizabeth Maynard, Morgan Kelley}
+\date{October 2021}
+\graphicspath{{Images/}}
+
+
+\begin{document}
+\maketitle
+
+\section{Exercise 1}
+No, the spectral radius does not define a norm. To be a norm, p(A) must satisfy
+
+\begin{center}
+    \begin{math}
+   p(A)\geq 0\end{math}
+    \begin{math}  \forall A \end{math}
+    
+    \begin{math}
+    p(A) = 0 \Leftrightarrow A = 0
+    \end{math}
+    
+    \begin{math}
+    p(kA) = |k|p(A) \end{math}
+    \begin{math} \forall k \in \mathbb {R}^n\end{math}
+    
+    \begin{math}
+    p(A + B) \leq p(A) + p(B)
+    \end{math}
+    
+    \begin{math}
+    p(AB) \leq p(A)p(B)
+    \end{math}
+    
+\end{center}
+for any matrices A and B. 
+The spectral radius does satisfy some of these conditions but not all of them. For example, consider the matrix
+\begin{math}
+A = \begin{bmatrix}
+0 & 0 \\
+1 & 0 \\
+\end{bmatrix}.
+\end{math}
+The eigenvalues of this matrix are \begin{math}\lambda_1 = \lambda_2 = 0\end{math}. By the definition of spectral radius, p(A) = 0. However, \begin{math}
+A \neq 0 \end{math}, which is a contradiction of the second requirement. Thus the spectral radius itself does not define a norm. 
+
+
+\begin{center}
+
+    
+\end{center}
+
+
+
+\section{Exercise 2}
+
+Given a linear system \begin{math}
+Ax=b\end{math}, one can get an exact solution for an approximate problem through backward error analysis. Let \begin{math}
+\hat{x} = x-e \end{math} and \begin{math}r = b-A\hat{x}\end{math}. Then
+\begin{math} Ae = A(x - \hat{x}) = Ax -A\hat{x} = b-A\hat{x} = r. \end{math}
+Here r is the residual and e is the error. In general, we want to know how far away our data is from the true trend. Unfortunately we may never know the function that the data follows but we can find how close our data fits with what we predict the trend should be. We must normalize our data to know if we are close to our predicted value on any given scale. This encourages us to find  \begin{math}\frac{||e||}{||x||}\end{math} and \begin{math}\frac{\|r\|}{\|b\|}\end{math}. We don't know x or e, so the next best thing is finding 
+\begin{math}\frac{||r||}{||b||}\end{math}. Note that by the triangle inequality, the equations we will use here are 
+\begin{center} \begin{equation} \label{eq:erl}
+||e|| \leq ||A^{-1}||*||r|| \end{equation}  \end{center}
+
+\begin{center} \begin{equation} \label{eq:er2}
+||r|| \leq ||A||*||e|| \end{equation}  \end{center}
+
+\begin{center} \begin{equation} \label{eq:er3}
+||x|| \leq ||A^{-1}||*||b|| \end{equation}  \end{center}
+
+\begin{center} \begin{equation} \label{eq:er4}
+||b|| \leq ||A||*||x|| \end{equation}  \end{center}
+We get \begin{math}\frac{1}{||A^{-1}||*||A||}\frac{||r||}{||b||} \leq \frac{||e||}{||x||} \leq ||A||*||A^{-1}||\frac{||r||}{||b||}\end{math} by dividing (1) by (4) and (2) by (3).
+
+\subsection{2a - Using 2 norm}
+
+We will analyze this inequality by breaking it into the right hand and left hand sides, respectively. For an inequality to be sharp, we must be able to find some value such that the inequality can be satisfied with equality. Thus we need to find an r and x such that \begin{math}\frac{||e||}{||x||}  = \frac{1}{||A^{-1}||*||A||}\frac{||r||}{||b||} \end{math} and so that  
+
+\begin{math}\frac{||e||}{||x||} = ||A||*||A^{-1}||\frac{||r||}{||b||}\end{math}. Recall the induced matrix norm
+\begin{math} ||A|| = \max\limits_{x \neq 0} \frac{||Ax||}{||x||}\end{math}.
+
+\subsubsection{Right Hand Side}
+Here we need to find a vector x such that \begin{math}
+\|Ax\| = \|A\|\|x\| = \|A\|. 
+\end{math}
+We can use the singular value decomposition to find such a vector. Let \begin{math}
+A = \Sigma V^T. 
+\end{math} Thus \begin{math}
+\Sigma = U^TAV,
+\end{math}and \begin{math}
+\|A\|_2 = \|\Sigma\|_2 = max {{|\sigma_1|, ... , |\sigma_n|}} = \sigma_n 
+\end{math} by the design of \begin{math}
+\Sigma
+\end{math}. Thus \begin{math}
+\sigma_n = \|A\|_2. 
+\end{math}Now we want to find x such that \begin{math}
+\|Ax\| = \sigma_n \|x\|. 
+\end{math}
+Recall that \begin{math}
+\Sigmae_n = \sigma_n e_n \implies U\Sigma V^TVe_n = U\sigma_n V_n. 
+\end{math} Then \begin{math}
+AVe_n = \sigma_n ue_n \implies \|\sigma_nUe_n\| = \sigma_n and \|Ve_n\| =1.
+\end{math}Thus our vector  \begin{math} x= Ve_n \end{math} 
+
+
+We also need to find a vector r such that \begin{math}
+\|A^-1r\| = \|A^-1\|\|r\| = \|A^-1\|. 
+\end{math}Note that the singular value decomposition of A from above will prove extremely useful. It follows that \begin{math}
+A^-1 = V\Sigma^-1U^T
+\end{math}
+Using the process from above, \begin{math}
+r = Ue_1.
+\end{math}
+
+\subsubsection{Left Hand Side}
+Here we want to find a vectors e and b such that 
+ \begin{math}
+\|Ae\| = \|A\|\|e\| = \|A\| 
+
+\end{math} and \begin{math}
+ 
+\|A^-1b\| = \|A^-1\|\|b\| = \|A^-1\|. 
+\end{math}
+Using similar logic to the right hand side, \begin{math}
+e=Ve_n
+\end{math}and \begin{math} b = Ue_1 \end{math}
+
+\subsection{2b - Using infinity norm}
+The process of finding the vectors that create equality is very similar to the process of 2a and the vectors do not change. 
+\subsubsection{Left Hand Side}
+Let \begin{math}
+A = \Sigma V^T. 
+\end{math} Thus \begin{math}
+\Sigma = U^TAV,
+\end{math}and \begin{math}
+\|A\|_\infty = \|\Sigma\|_\infty 
+\end{math} which is equal to the max row sum of \begin{math}
+\Sigma. 
+\end{math}Suppose that the row this occurs in is row m, and the entry is \begin{math}
+\eta_m
+\end{math}. Then\begin{math}
+ \|Ae\| = \eta_m\|e\|. 
+\end{math} It follows from above that \begin{math}
+\Vec{e} = Ve_n\end{math} and \begin{math} b = Ue_1.
+ \end{math}
+\subsubsection{Right Hand Side}
+\begin{math}
+x = Ve_n \end{math} and \begin{math} r = Ue_1.
+\end{math}
+\section{Exercise 3}
+Suppose \begin{math} A \in A^{nxn} \end{math} is symmetric. Let \begin{math} \lambda \end{math} be an eigenvalue of A and let x be the corresponding eigenvector. Thus \begin{math}
+Ax = \lambda x\end{math}. Suppose \begin{math}
+\lambda \end{math} is complex. Then \begin{math}
+x \neq \Bar{x} \end{math}. Multiplying with \begin{math}
+\Bar{x}^T \end{math} yields \begin{math}
+\Bar{x}^TAx = \Bar{x}^T\lambda x = \lambda\Bar{x}^Tx = \lambda \|x\| \end{math}. By taking the conjugate of the left and right sides we get \begin{math}
+\Bar{\lambda} \|x\| = \Bar{x}^T\Bar{A}^Tx. \end{math} Because A is symmetric, \begin{math} A = \Bar{A}  =A^T \implies \Bar{A}^T = A.\end{math} Thus \begin{math} \Bar{\lambda} \|x\| = \Bar{x}^TAx.\end{math} Therefore we have shown that \begin{math}
+\lambda \|x\| = \Bar{x}^TAx = \Bar{\lambda} \|x\|. \end{math} Simplifying yields that \begin{math} \lambda = \Bar{\lambda} \implies \lambda \end{math} is real.
+
+
+
+
+\section{Exercise 4}
+
+\begin{math}
+\mathnormal{A=}\left[\!
+\begin{array}{cc}
+    A_{11} & A_{12}  \\
+    A_{22} & A_{22}\\
+  \end{array}\!\right] \mathnormal{B=}\left[\!
+\begin{array}{cc}
+    B_{11} & B_{12}  \\
+    B_{22} & B_{22}\\
+  \end{array}\!\right]
+  \end{math} We want to show that \begin{math} \mathnormal{AB=}\left[\!
+\begin{array}{cc}
+    A_{11}B_{11} + A_{12}B_{21} &  A_{11}B_{12} + A_{12}B_{22}  \\
+    A_{21}B_{11} + A_{22}B_{21} & A_{21}B_{12} + A_{22}B_{22} \\
+  \end{array}\!\right]\end{math}.
+  
+  
+  
+  
+  Note that \begin{math}
+  \mathnormal{A=}\left[\!
+\begin{array}{ccccccc}
+    a_{11} & \cdots & a_{1,l_{1}} \cdots  & \cdots & \cdots & a_{1,l_2}\\
+    \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+    a_{m_1,1} & \cdots & \cdots & \cdots & \cdots & a_{m_1, l_2}\\
+    \vdots &  \vdots & \vdots & \vdots & \vdots & \vdots \\
+    a_{m_2,1} & \cdots & a_{m_2,l_1} & \cdots & \cdots & a_{m_2,l_2}\\
+   
+  \end{array}\!\right] 
+
+  \end{math}
+  and \begin{math}
+  \mathnormal{B=}\left[\!
+\begin{array}{ccccccc}
+    b_{11} & \cdots & b_{1,n_{1}} \cdots  & \cdots & \cdots & b_{1,n_2}\\
+    \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+    b_{l_1,1} & \cdots & \cdots & \cdots & \cdots & b_{l_1, n_2}\\
+    \vdots &  \vdots & \vdots & \vdots & \vdots & \vdots \\
+    b_{l_2,1} & \cdots & b_{l_2,n_1} & \cdots & \cdots & b_{l_2,n_2}\\
+   
+  \end{array}\!\right] 
+
+  \end{math}
+  
+
+  \begin{math}
+  \mathnormal{A_{11}}\left[\!
+\begin{array}{cccc}
+    a_{11} & a_{12} & \cdots & a_{1,l_{1}}  \\
+    a_{21} & \ddots & \ddots & a_{2,l_{1}} \\
+    \vdots & \\
+    a_{m_1,1} &  a_{m_1,2} & \cdots &  a_{m_1,l_{1}}
+  \end{array}\!\right]   
+  \mathnormal{A_{12}}\left[\!
+\begin{array}{cccc}
+    a_{1, l_{1}+1} & \cdots & \cdots & a_{1,l_{2}}  \\
+    a_{2,l_{1}+1} & \ddots & \ddots & a_{2,l_{1}} \\
+    \vdots & \\
+    a_{m_1,l_{1}+1} & \cdots & \cdots &  a_{m_1,l_{2}}
+  \end{array}\!\right]
+  
+   \mathnormal{A_{21}}\left[\!
+\begin{array}{cccc}
+    a_{m_{1}+1,1} & \cdots & \cdots & a_{m_{1}+1,l_{1}}  \\
+    a_{m_{1}+2,1} & \ddots & \ddots & a_{m_1+2,l_{1}} \\
+    \vdots & \\
+    a_{m_2,1} &  a_{m_2,2} & \cdots &  a_{m_2,l_{1}}
+  \end{array}\!\right]
+ \mathnormal{A_{22}}\left[\!
+\begin{array}{cccc}
+    a_{m_1+1,l_1+1} & a_{m_1+1,l_1+2} & \cdots & a_{m_1+1,l_2}  \\
+    a_{m_1+2,l_1+1} & \ddots & \ddots & a_{m_1+2,l_{2}} \\
+    \vdots & \\
+    a_{m_2,l_1+1} &  a_{m_2,l_1+2} & \cdots &  a_{m_2,l_2}
+  \end{array}\!\right]
+  
+  \mathnormal{B_{11}}\left[\!
+\begin{array}{cccc}
+    b_{11} & b_{12} & \cdots & b_{1,n_{1}}  \\
+    b_{21} & \ddots & \ddots & b_{2,n_{1}} \\
+    \vdots & \\
+    b_{l_1,1} &  b_{l_1,2} & \cdots &  b_{l_1,n_{1}}
+  \end{array}\!\right]
+\mathnormal{B_{12}}\left[\!
+\begin{array}{cccc}
+    b_{1,n_1+1} & b_{1,n_1+2} & \cdots & b_{1,n_2}  \\
+    b_{2,n_1+1} & \ddots & \ddots & b_{2,n_2} \\
+    \vdots & \\
+    b_{l_1,n_1+1} &  b_{l_1,n_1+2} & \cdots &  b_{l_1,n_{2}}
+  \end{array}\!\right]
+  
+  \mathnormal{B_{21}}\left[\!
+\begin{array}{cccc}
+    b_{l_{1}+1,1} & \cdots & \cdots & b_{l_{1}+1,n_{1}}  \\
+    b_{l_{1}+2,1} & \ddots & \ddots & b_{l_1+2,n_{1}} \\
+    \vdots & \\
+    b_{l_2,1} &  b_{l_2,2} & \cdots &  b_{l_2,n_{1}}
+  \end{array}\!\right]
+  \mathnormal{B_{22}}\left[\!
+\begin{array}{cccc}
+    b_{l_1+1,n_1+1} & b_{l_1+1,n_1+2} & \cdots & b_{l_1+1,n_2}  \\
+    b_{l_1+2,n_1+1} & \ddots & \ddots & b_{l_1+2,n_{2}} \\
+    \vdots & \\
+    b_{l_2,n_1+1} &  b_{l_2,n_1+2} & \cdots &  b_{l_2,n_2}
+  \end{array}\!\right]
+  
+  \end{math}
+  
+  \begin{math}
+ 
+  \mathnormal{A_{11}B_{11}}\left[\!
+\begin{array}{cccc}
+    a_{1,1}b_{1,1} + \cdots + a_{1,l_1}b_{l_1,1} & \cdots & a_{1,1}b_{1, n_1} + \cdots +  a_{1,l_1}b_{l_1, n_1}\\
+   \vdots & \ddots & \ddots \\
+    a_{m_1,1}b_{1,1}+ \cdots + a_{m_1,l_1}b_{l_1,1} & \cdots & a_{m_1,1}b_{1, n_1} + \cdots +  a_{m_1,l_1}b_{l_1, n_1}\\
+    
+  \end{array}\!\right]
+  \end{math}
+  
+  
+  \begin{math}
+ 
+  \mathnormal{A_{21}B_{11}}\left[\!
+\begin{array}{cccc}
+    a_{m_1+1,1}b_{1,1} + \cdots + a_{m_1+1,l_1}b_{1,1}& \cdots & a_{m_1+,1}b_{1, n_1} + \cdots +  a_{1,l_1}b_{l_1, n_1}\\
+   \vdots & \ddots & \ddots \\
+    a_{m_1,1}b_{1,1}+ \cdots + a_{m_1,l_1}b_{l_1,1} & \cdots & a_{m_1,1}b_{1, n_1} + \cdots +  a_{m_1+1,l_1}b_{l_2, n_1}\\
+    
+  \end{array}\!\right]
+  \end{math}
+  
+  \begin{math}
+  
+    \mathnormal{A_{12}B_{21}}\left[\!
+\begin{array}{cccc}
+    a_{1, l_1+1}b_{l_1+1,1} + \cdots + a_{1,l_2}b_{l_2,1}
+    & \cdots & 
+    a_{1,l_1+1}b_{l_1+1, n_1} + \cdots +  a_{1,l_2}b_{l_2, n_1}\\
+   \vdots & \ddots & \ddots  \\
+   
+    a_{m_1,l_1+1}b_{1,1}+ \cdots + a_{m_1,l_1}b_{l_1,1} 
+    & \cdots & 
+    a_{m_1,l_1+1}b_{l_1+1, n_1} + \cdots +  a_{m_1,l_2}b_{l_2, n_1}\\
+    
+  \end{array}\!\right]
+  \end{math}
+  
+   \begin{math}
+  
+    \mathnormal{A_{22}B_{21}}\left[\!
+\begin{array}{cccc}
+    a_{m_1+1, l_1+1}b_{l_1+1,1} + \cdots + a_{m_2,l_1+1}b_{l_1+1,n_1}
+    & \cdots & 
+   a_{m_1+1,l_2}b_{l_2,1} + \cdots +  a_{1,l_2}b_{l_2, n_1}\\
+   \vdots & \ddots & \ddots  \\
+   
+    a_{m_2+1,l_2}b_{l_2,1}+ \cdots + a_{m_2,l_2}b_{l_2,n_1} 
+    & \cdots & 
+    a_{m_2,l_1+1}b_{l_1+1, n_1} + \cdots +  a_{m_2,l_2}b_{l_2, n_1}\\
+    
+  \end{array}\!\right]
+  \end{math}
+  
+  
+     \begin{math}
+  
+    \mathnormal{A_{11}B_{12}}\left[\!
+\begin{array}{cccc}
+    a_{1,1}b_{1,n_1+1} + \cdots + a_{1,l_1}b_{l_1,n_1+1}
+    & \cdots & 
+   a_{1,1}b_{1,n_2} + \cdots +  a_{1,l_1}b_{l_2, n_2}\\
+   \vdots & \ddots & \ddots  \\
+   
+    a_{m_1,1}b_{1,n_1+1}+ \cdots + a_{m_1,l_1}b_{l_1,n_1+1} 
+    & \cdots & 
+    a_{m_1,1}b_{1, n_2} + \cdots +  a_{m_1,l_1}b_{l_1, n_2}\\
+    
+  \end{array}\!\right]
+  \end{math}
+  
+  
+   \begin{math}
+  
+    \mathnormal{A_{12}B_{22}}\left[\!
+\begin{array}{cccc}
+    a_{1, l_1+1}b_{l_1+1,n_1+1} + \cdots + a_{1,l_2}b_{l_2,n_1+1}
+    & \cdots & 
+    a_{1,l_1+1}b_{l_1+1, n_2} + \cdots +  a_{1,l_2}b_{l_2, n_2}\\
+   \vdots & \ddots & \ddots  \\
+   
+    a_{m_1,l_1+1}b_{l_1+1,n_1+1}+ \cdots + a_{m_1,l_2}b_{l_2,n_1+1} 
+    & \cdots & 
+    a_{m_1,l_1+1}b_{l_1+1, n_2} + \cdots +  a_{m_1,l_2}b_{l_2, n_2}\\
+    
+  \end{array}\!\right]
+  \end{math}
+  
+\begin{math}
+  
+    \mathnormal{A_{21}B_{12}}\left[\!
+\begin{array}{cccc}
+    a_{m_1+1,1}b_{1,n_1+1} + \cdots + a_{m_1+1,l_1}b_{l_1,n_1+1}
+    & \cdots & 
+   a_{m_1+1,1}b_{1,n_2} + \cdots +  a_{m_1+1,l_1}b_{l_2, n_2}\\
+   \vdots & \ddots & \ddots  \\
+   
+    a_{m_2,1}b_{1,n_1+1}+ \cdots + a_{m_2,l_1}b_{l_1,n_1+1} 
+    & \cdots & 
+    a_{m_2,1}b_{1, n_2} + \cdots +  a_{m_2,l_1}b_{l_1, n_2}\\
+    
+  \end{array}\!\right]
+  \end{math}
+  
+\begin{math}
+ \mathnormal{A_{22}B_{22}}\left[\!
+\begin{array}{cccc}
+    a_{m_1+1, l_1+1}b_{l_1+1,n_1+1} + \cdots + a_{m_1+1,l_2}b_{l_2,n_1+1}
+    & \cdots & 
+   a_{m_1+1, l_1+1}b_{l_1+1, n_2} + \cdots +   a_{m_1+1,l_2}b_{l_2, n_2}\\
+   \vdots & \ddots & \ddots  \\
+   
+    a_{m_2,l_1+1}b_{l_1+1,n_1+1}+ \cdots + a_{m_2,l_2}b_{l_2,n_1+1} 
+    & \cdots & 
+    a_{m_2,l_1+1}b_{l_1+1, n_2} + \cdots +  a_{m_2,l_2}b_{l_2, n_2}\\
+    
+  \end{array}\!\right]
+  \end{math}
+
+
+\begin{math}
+A_{11}B_{11} + A_{12}B_{21} =
+
+\mathnormal{ } \left[\!
+\begin{array}{ccc}
+ a_{1,1}b_{1,1} + \cdots + a_{1,l_1}b_{l_1,1} +  \cdots + a_{1,l_2}b_{l_2,1}  & \cdots & a_{1,1}b_{1, n_1} + \cdots  + \cdots +  a_{1,l_2}b_{l_2, n_1}\\
+   \vdots & \ddots & \ddots \\
+(a_{m_1,1}b_{1,1}+ \cdots + a_{m_1,l_1}b_{l_1,1}) +  \cdots + a_{m_1,l_1}b_{l_1,1} & \cdots & (a_{m_1,1}b_{1, n_1} + \cdots +  \cdots + a_{m_1,l_2}b_{l_2,n_1}\\
+    
+  \end{array}\!\right]
+
+\end{math}
+
+
+\begin{math}
+A_{11}B_{12} + A_{12}B_{22} = 
+
+\mathnormal{ } \left[\!
+\begin{array}{cccc}
+    a_{1,1}b_{1,n_1+1} + \cdots + a_{1,l_1}b_{l_1,n_1+1} + \cdots + a_{1,l_2}b_{l_2,n_1+1}
+    & \cdots & 
+   a_{1,1}b_{1,n_2} +  \cdots +  a_{1,l_2}b_{l_2, n_2}\\
+   
+   \vdots & \ddots & \ddots  \\
+   
+    a_{m_1,1}b_{1,n_1+1}+  \cdots + a_{m_1,l_2}b_{l_2,n_1+1} 
+    & \cdots & 
+    a_{m_1,1}b_{1, n_2} + \cdots +  a_{m_1,l_2}b_{l_2, n_2}\\
+    
+  \end{array}\!\right]
+
+
+
+\end{math}
+
+\begin{math}
+A_{21}B_{11} + A_{22}B_{21} = 
+
+ 
+  \mathnormal{}\left[\!
+\begin{array}{ccc}
+a_{m_1+1,1}b_{1,1} + \cdots + a_{m_2,l_1+1}b_{l_1+1,n_1} & \cdots & a_{m_1+,1}b_{1, n_1} + \cdots +  a_{1,l_1}b_{l_1, n_1} + \cdots +  a_{1,l_2}b_{l_2, n_1}\\
+   \vdots & \ddots & \ddots \\
+   a_{m_1,1}b_{1,1}+ \cdots + a_{m_1,l_1}b_{l_1,1} + \cdots + a_{m_2,l_2}b_{l_2,n_1}  & \cdots & a_{m_1,1}b_{1, n_1} + \cdots +  a_{m_2,l_2}b_{l_2, n_1}\\
+    
+  \end{array}\!\right]
+
+
+\end{math}
+\begin{math}
+A_{21}B_{12} + A_{22}B_{22} = 
+
+    \mathnormal{}\left[\!
+\begin{array}{cccc}
+    a_{m_1+1,1}b_{1,n_1+1} + \cdots + a_{m_1+1,l_1}b_{l_1,n_1+1}  + a_{m_1+1,l_2}b_{l_2,n_1+1}
+    & \cdots & 
+   a_{m_1+1,1}b_{1,n_2} + \cdots +   a_{m_1+1,l_2}b_{l_2, n_2}\\
+   \vdots & \ddots & \ddots  \\
+   
+    a_{m_2,1}b_{1,n_1+1}+ \cdots + a_{m_2,l_1}b_{l_1,n_1+1} + \cdots + a_{m_2,l_2}b_{l_2,n_1+1} 
+    & \cdots & 
+    a_{m_2,1}b_{1, n_2} + \cdots +  a_{m_2,l_2}b_{l_2, n_2}\\
+    
+  \end{array}\!\right]
+\end{math}
+
+Note that if we multiply A and B without using the given partitions, we get
+ \begin{math}
+  \mathnormal{AB=}\left[\!
+\begin{array}{ccccccc}
+    a_{11} & \cdots & a_{1,l_{1}} \cdots  & \cdots & \cdots & a_{1,l_2}\\
+    \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+    a_{m_1,1} & \cdots & \cdots & \cdots & \cdots & a_{m_1, l_2}\\
+    \vdots &  \vdots & \vdots & \vdots & \vdots & \vdots \\
+    a_{m_2,1} & \cdots & a_{m_2,l_1} & \cdots & \cdots & a_{m_2,l_2}\\
+  \end{array}\!\right] \mathnormal{}\left[\!
+\begin{array}{ccccccc}
+    b_{11} & \cdots & b_{1,n_{1}} \cdots  & \cdots & \cdots & b_{1,n_2}\\
+    \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+    b_{l_1,1} & \cdots & \cdots & \cdots & \cdots & b_{l_1, n_2}\\
+    \vdots &  \vdots & \vdots & \vdots & \vdots & \vdots \\
+    b_{l_2,1} & \cdots & b_{l_2,n_1} & \cdots & \cdots & b_{l_2,n_2}\\
+   
+  \end{array}\!\right] 
+\end{math}
+\begin{math}
+\mathnormal{=}\left[\!
+\begin{array}{ccc}
+ a_{11}b_{11} + \cdots + a_{1,l_2}b_{l_2,1} & \cdots &  a_{11}b_{1, n_2} + \cdots + a_{1,l_2}b_{l_2,n_2} \\
+ \vdots & \vdots & \vdots \\
+  a_{m_2,1}b_{11} + \cdots + a_{m_2,l_2}b_{l_2,1} & \cdots &  a_{m_2,1}b_{1, n_2} + \cdots + a_{m_2,l_2}b_{l_2,n_2} \\
+ 
+ 
+ \end{array}\!\right]
+\end{math}
+
+which is equal to \begin{math} \mathnormal{}\left[\!
+\begin{array}{cc}
+    A_{11}B_{11} + A_{12}B_{21} &  A_{11}B_{12} + A_{12}B_{22}  \\
+    A_{21}B_{11} + A_{22}B_{21} & A_{21}B_{12} + A_{22}B_{22} \\
+  \end{array}\!\right]\end{math} = AB.
+
+
+
+\section{Exercise 5}
+
+
+We can see that (a) is false by a simple counterexample of a block matrix:
+
+\begin{center}
+
+\begin{math}\mathnormal{A=}\left[\!
+\begin{array}{cc}
+    A_{11} & A_{12} \\
+    A_{21} & A_{22} \\
+\end{array}\!\right]\end{math}
+
+\end{center}
+
+
+consisting of the four matricies:
+
+\begin{center}
+
+\begin{math}\mathnormal{A_{11}=}\left[\!
+\begin{array}{cc}
+    1 & 2 \\
+    3 & 4\\
+\end{array}\!\right]\end{math} , \begin{math}\mathnormal{A_{12}=}\left[\!
+\begin{array}{cc}
+    4 & 5 \\
+    6 & 7\\
+\end{array}\!\right]\end{math}
+\bigbreak
+\begin{math}\mathnormal{A_{21}=}\left[\!
+\begin{array}{cc}
+    7 & 9 \\
+    2 & 4\\
+\end{array}\!\right]\end{math} , \begin{math}\mathnormal{A_{22}=}\left[\!
+\begin{array}{cc}
+    5 & 11 \\
+    12 & 2\\
+\end{array}\!\right]\end{math}
+
+\end{center}
+
+Where each respective determinant is as follows:
+
+\begin{center}
+
+\begin{math}\mathnormal{det(A_{11})=1(4)-2(3)=4-6= -2}\end{math}
+
+\begin{math}\mathnormal{det(A_{12})=4(7)-5(6)=28-30= -2}\end{math}
+
+\begin{math}\mathnormal{det(A_{21})=7(4)-9(2)=28-18= 10}\end{math}
+
+\begin{math}\mathnormal{det(A_{22})=5(2)-11(12)=10-132= -122}\end{math}
+
+\bigbreak
+
+Where \begin{math}\mathnormal{det(A_{11})det(A_{22})-det(A_{12})det(A_{21})=-2(-122)-(-2)(10)=244+20=264}\end{math}
+
+\end{center}
+Now if we show A in this form:
+
+\begin{center}
+
+\begin{math}\mathnormal{A=}\left[\!
+\begin{array}{cccc}
+    1 & 2 & 4 & 5 \\
+    3 & 4 & 6 & 7\\
+    7 & 9 & 5 & 11\\
+    2 & 4 & 12 & 2 \\
+\end{array}\!\right]\end{math}
+
+\end{center}
+
+And solve for the determinant of that matrix from there, where we:
+
+\begin{center}
+
+Eliminate the elements below row 1 in column 1:
+
+\begin{math}\mathnormal{A=}\left[\!
+\begin{array}{cccc}
+    1 & 2 & 4 & 5 \\
+    0 & -2 & -6 & -8\\
+    0 & -5 & -23 & -24\\
+    0 & 0 & 4 & 8 \\
+\end{array}\!\right]\end{math}
+\bigbreak
+
+Then Eliminate the elements below row 2 in column 2:
+\begin{math}\mathnormal{A=}\left[\!
+\begin{array}{cccc}
+    1 & 2 & 4 & 5 \\
+    0 & -2 & -6 & -8\\
+    0 & 0 & -8 & -4\\
+    0 & 0 & 4 & 8 \\
+\end{array}\!\right]\end{math}
+\bigbreak
+And now eliminate the elements below row 3 in column 3:
+\begin{math}\mathnormal{A=}\left[\!
+\begin{array}{cccc}
+    1 & 2 & 4 & 5 \\
+    0 & -2 & -6 & -8\\
+    0 & 0 & -8 & -4\\
+    0 & 0 & 0 & -10 \\
+\end{array}\!\right]\end{math}
+\bigbreak
+We now multiply all of the diagonal entries to obtain the determinant of matrix A.
+\begin{math}\mathnormal{1*-2*-8*-10=-160}\end{math}
+\end{center}
+
+And as we can see, \begin{math}\mathnormal{-160 \neq 264}\end{math}, thus \begin{math}\mathnormal{det(A) \neq det(A_{11})det(A_{22})-det(A_{12})det(A_{21})}\end{math}
+
+Now, we can also see that (b) is false as well, through this counterexample:
+
+We start by setting the matricies:
+
+\begin{center}
+
+\begin{math}\mathnormal{A=}\left[\!
+\begin{array}{cc}
+    B & 0 \\
+    C & D \\
+\end{array}\!\right]\end{math}
+\bigbreak
+Where
+\begin{math}\mathnormal{A=}\left[\!
+\begin{array}{cccccccc}
+    1 & 2 & 3 & 4 & 5 & 6 & 0 & 0 \\
+    0 & 1 & 2 & 3 & 4 & 5 & 0 & 0 \\
+    0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+\end{array}\!\right]\end{math}
+\bigbreak
+Thus,
+\begin{math}\mathnormal{B=}\left[\!
+\begin{array}{cccccc}
+    1 & 2 & 3 & 4 & 5 & 6 \\
+    0 & 1 & 2 & 3 & 4 & 5 \\
+\end{array}\!\right]\end{math}
+\bigbreak
+And,
+\begin{math}\mathnormal{C=}\left[\!
+\begin{array}{cccccc}
+    0 & 0 & 0 & 1 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 1 & 0\\
+\end{array}\!\right]\end{math}
+\bigbreak
+And Finally,
+\begin{math}\mathnormal{D=}\left[\!
+\begin{array}{cc}
+    1 & 0 \\
+    0 & 0 \\
+\end{array}\!\right]\end{math}
+\end{center}
+
+To solve for the rank, we just count how many linearly independent rows there are in a given matrix. So the ranks of our matricies are as follows:
+
+\begin{center}
+
+\begin{math}\mathnormal{Rank(B)=2}\end{math}
+\bigbreak
+\begin{math}\mathnormal{Rank(D)=1}\end{math}
+\bigbreak
+\begin{math}\mathnormal{Rank(A)=4}\end{math}
+
+\end{center}
+And as we can see \begin{math}\mathnormal{Rank(A)=4}\end{math}, and \begin{math}\mathnormal{Rank(B)+Rank(D)=3}\end{math}. So \begin{math}\mathnormal{Rank(A)\neq Rank(B)+Rank(D)}\end{math}. Making this statement false.
+
+\section{Exercise 6}
+
+We start this proof with the understanding that for the Cholesky Decomposition, \begin{math}\mathnormal{A=LL^T}\end{math}, \begin{math}\mathnormal{A}\end{math} is an nxn symmetric (positive definite) matrix. \begin{math}\mathnormal{L}\end{math} is a lower triangle matrix, and \begin{math}\mathnormal{L^T}\end{math} is the transpose of the lower triangle matrix. We begin with A, an nxn matrix:
+
+\begin{center}
+
+\begin{math}\mathnormal{A=}\left[\!
+\begin{array}{cccc}
+    a_{11} & a_{12} & \dots & a_{1n} \\
+    a_{21} & a_{22} & \dots & a_{2n}\\
+    \vdots & \vdots & \ddots & \vdots\\
+    a_{n1} & a_{n2} & \dots & a_{nn} \\
+\end{array}\!\right]\end{math}
+\bigbreak
+And
+\begin{math}\mathnormal{L=}\left[\!
+\begin{array}{ccccc}
+    a_{11} & 0 & \dots & \dots & 0 \\
+    a_{21} & a_{22} & 0 & \dots & 0\\
+    \vdots & \vdots & \ddots & \ddots & \vdots\\
+    a_{n1} & a_{n2} & a_{n3} & 0 \dots & a_{nn} \\
+\end{array}\!\right]\end{math}
+\bigbreak
+And
+\begin{math}\mathnormal{L^T=}\left[\!
+\begin{array}{cccc}
+    a_{11} & a_{12} & \dots & a_{1n} \\
+    0 & a_{22} & \dots & a_{2n}\\
+    \vdots & \vdots & \ddots & \vdots\\
+    0 & 0 & \dots & a_{nn} \\
+\end{array}\!\right]\end{math}
+
+\end{center}
+
+We will use a \begin{math}\mathnormal{3\times 3}\end{math} example to obtain a general solution to this problem:
+
+\begin{center}
+
+\begin{math}\mathnormal{A=}\left[\!
+\begin{array}{ccc}
+    a_{11} & a_{12} & a_{13} \\
+    a_{21} & a_{22} & a_{23}\\
+    a_{31} & a_{32} & a_{33} \\
+\end{array}\!\right]\end{math}
+\bigbreak
+And
+\begin{math}\mathnormal{L=}\left[\!
+\begin{array}{ccc}
+    l_{11} & 0 & 0 \\
+    l_{21} & l_{22} & 0\\
+    l_{31} & l_{32} & l_{33} \\
+\end{array}\!\right]\end{math}
+\bigbreak
+And then,
+\begin{math}\mathnormal{L^T=}\left[\!
+\begin{array}{ccc}
+    l_{11} & l_{12} & l_{31} \\
+    0 & l_{22} & l_{32}\\
+    0 & 0 & l_{33} \\
+\end{array}\!\right]\end{math}
+\bigbreak
+So
+\begin{math}\left[\!
+\begin{array}{ccc}
+    a_{11} & a_{12} & a_{13} \\
+    a_{21} & a_{22} & a_{23}\\
+    a_{31} & a_{32} & a_{33} \\
+\end{array}\!\right]\end{math} = \begin{math}\left[\!
+\begin{array}{ccc}
+    l_{11} & 0 & 0 \\
+    l_{21} & l_{22} & 0\\
+    l_{31} & l_{32} & l_{33} \\
+\end{array}\!\right]\end{math} \begin{math}\left[\!
+\begin{array}{ccc}
+    l_{11} & l_{12} & l_{31} \\
+    0 & l_{22} & l_{32}\\
+    0 & 0 & l_{33} \\
+\end{array}\!\right]\end{math}
+\bigbreak
+We multiply:
+
+\begin{math}\left[\!
+\begin{array}{ccc}
+    a_{11} & a_{12} & a_{13} \\
+    a_{21} & a_{22} & a_{23}\\
+    a_{31} & a_{32} & a_{33} \\
+\end{array}\!\right]\end{math} = \begin{math}\left[\!
+\begin{array}{ccc}
+    l_{11} & l_{21}l_{11} & l_{31}l_{11} \\
+    l_{21}l_{11} & l_{21}^2+l_{22} & l_{31}l_{21}+l_{32}l_{22}\\
+    l_{31}l_{11} & l_{31}l_{21}+l_{32}l_{22} & l_{31}^2+l_{32}^2+l_{33}^2 \\
+\end{array}\!\right]\end{math}
+\bigbreak
+Next, we equate the diagonals of both sides:
+\bigbreak
+\begin{math}\mathnormal{l_{11}^2=a_{11} \implies l_{11}=\sqrt{a_{11}}}\end{math}
+
+\begin{math}\mathnormal{l_{22}^2+l_{21}^2=a_{22} \implies l_{22}=\sqrt{a_{22}-l_{21}^2}}\end{math}
+
+\begin{math}\mathnormal{l_{31}^2+l_{32}^2+l_{33}^2=a_{33} \implies l_{33}=\sqrt{a_{33}-(l_{31}^2+l_{32}^2)}}\end{math}
+
+\end{center}
+
+Finally, seeing the case for \begin{math}\mathnormal{3\times 3}\end{math} , we can generalize:
+
+\begin{center}
+
+\begin{math}\mathnormal{l_{ii}=(a_{ii}-\displaystyle\sum_{j=1}^{i-1}l_{ik}^2)^{\frac{1}{2}}}\end{math} (1)
+
+Where we can obtain the elements (for our \begin{math}\mathnormal{3\times 3}\end{math}  example):
+
+\begin{math}\mathnormal{l_{21}l_{21}=a_{21}}\quad\end{math},    \begin{math}\mathnormal{l_{31}l{11}=a_{31}}\quad\end{math},    \begin{math}\mathnormal{l_{31}l_{21}+l_{32}l_{22}=a_{32}}\end{math}
+
+\begin{math}\mathnormal{l_{21}=\frac{a_{21}}{l_{11}}}\quad\end{math},  \begin{math}\mathnormal{l_{31}=\frac{a_{31}}{l_{11}}}\qquad\end{math},  \begin{math}\mathnormal{l_{32}=\frac{1}{l_{22}}(a_{32}-l_{31}l_{21})}\end{math}
+\bigbreak
+And we can see from this example that we can generalize this idea to:
+\begin{math}\mathnormal{l_{ij}=\frac{a_{ij}-\displaystyle\sum_{k=1}^{j-1}l_{ij}l_{jk}}{l_{jj}}}\end{math} (2)
+
+\end{center}
+
+With that information, we know that each \begin{math}\mathnormal{l_{ij}}\end{math} in the above equation (2) has \begin{math}\mathnormal{(i-1)}\end{math} multiplications and 1 division.
+\bigbreak
+For each \begin{math}\mathnormal{l_{ii}}\end{math} in equation (1), we have \begin{math}\mathnormal{(i-1)}\end{math} multiplications (no divisions).
+
+
+\section{Exercise 7}
+
+
+ Meg has said that she has created a linear programming algorithm that is independent of the problem size and requires equality constraints and cannot handle sign restrictions. Suppose we want to solve the problem Ax=b where \begin{math} c^Tx = min\end{math}. Suppose A has n columns and suppose we have m equations, where \begin{math}m<n.  \end{math}Then we have the system:
+ \begin{center}
+     \begin{math}
+     \begin{array}{cccc}
+
+     m_1n_1 + m_2n_2+ \cdots + m_1n_n\\
+     m_2n_1 + \cdots + \cdots +m_2n_n\\
+   \vdots \\
+  m_mn_1 + \cdots + \cdots +m_mn_n\\
+   \end{array}
+     \end{math}
+ \end{center}
+ and \begin{math}
+ c_1n_1 + c_2n_2 + \cdots +c_nn_n = min. 
+ \end{math}Suppose \begin{math}
+ c_1, ..., c_n =1.
+ \end{math}
+ Then \begin{math}
+ n_1 +n_2 + \cdots +n_n = min.
+ \end{math}
+This creates a problem because
+ \begin{math}
+n_1, \cdots, n_n \end{math} can go to \begin{math}
+-\infty
+\end{math}
+Thus, this function is unbounded below on the feasible range so there is no solution. The contour lines of \begin{math}
+c^T x = min
+\end{math} may be parallel to our system above. If this is the case, there will be infinitely many solutions. 
+Unfortunately, transforming a problem of the form \begin{math}
+ c^T x = min
+\end{math} subject to \begin{math}
+Ax \leq b 
+\end{math} and \begin{math}
+x \geq 0
+\end{math} into a form that Meg's algorithm can solve is not possible. If we have a unique solution to the problem \begin{math}
+ c^T x = min
+\end{math} subject to \begin{math}
+Ax \leq b 
+\end{math}, it will be lost in the transformation to her algorithm because transformations must conserve uniqueness, and her algorithm cannot possibly give a unique solution. 
+
+
+
+\section{Exercise 8}
+
+We know that our \begin{math}\mathnormal{A}\end{math} and \begin{math}\mathnormal{A+uv^T}\end{math} are non-singular. This meaning that \begin{math}\mathnormal{A}\end{math} and \begin{math}\mathnormal{A+uv^T}\end{math} are invertible and \begin{math}\mathnormal{A^{-1}}\end{math} and \begin{math}\mathnormal{(A+uv^T)^{-1}}\end{math} both exist as well. Given that, we can begin our proof showing that:
+
+\begin{center}
+
+\begin{math}\mathnormal{(A+uv^T)=A^{-1}-\frac{A^{-1}uv^TA^{-1}}{1+v^TA^{-1}u}}\end{math}
+
+\end{center}
+
+And we do this by first multiplying each side by \begin{math}\mathnormal{(A+uv^T)}\end{math}:
+
+\begin{center}
+
+\begin{math}\mathnormal{(A+uv^T)(A+uv^T)=(A+uv^T)(A^{-1}-\frac{A^{-1}uv^TA^{-1}}{1+v^TA^{-1}u})}\end{math}
+
+\end{center}
+Now, we know that \begin{math}\mathnormal{AA^{-1}=I}\end{math}
+\begin{center} (the identity matrix), so with that knowledge we simplify the above equation to:
+
+\begin{center}
+
+\begin{math}\mathnormal{I=(A+uv^T)(A^{-1}-\frac{A^{-1}uv^TA^{-1}}{1+v^TA^{-1}u})}\end{math}
+
+\end{center}
+
+Next we have to prove that the right-hand side of the equation \begin{math}\mathnormal{RHS=(A+uv^T)(A^{-1}-\frac{A^{-1}uv^TA^{-1}}{1+v^TA^{-1}u})}\end{math}
+
+\begin{math}\mathnormal{=AA^{-1}+uv^TA^{-1}-A\frac{A^{-1}uv^TA^{-1}}{1+v^TA^{-1}u}-\frac{uv^TA^{-1}uv^TA^{-1}}{1+v^TA^{-1}u}}\end{math}
+
+\begin{math}\mathnormal{=I+uv^TA^{-1}-\frac{Iuv^TA^{-1}+uv^TA^{-1}uv^TA^{-1}}{1+v^TA^{-1}u}}\end{math}
+
+\begin{math}\mathnormal{=I+uv^TA^{-1}-\frac{uv^TA^{-1}(1+uv^TA^{-1})}{1+uv^TA^{-1}}}\end{math}
+
+\begin{math}\mathnormal{=I+uv^TA^{-1}-uv^TA^{-1}}\end{math}
+\bigbreak
+
+\begin{math}\mathnormal{= I = LHS}\end{math}
+
+\end{center}
+
+Thus, the RHS = LHS, so this has been proved.
+
+
+
+
+
+\section{Exercise 9}
+
+We want to show that
+
+\begin{center}
+
+\begin{math}\mathnormal{det\left(}\left[\!
+    \begin{array}{cccCC}
+      \alpha_{n-1} & \alpha_{n-2} & \dots & \alpha_1 & \alpha_0 \\
+      1 & 0 & \dots & 0 & 0 \\
+      0 & 1 & \dots & 0 & 0 \\
+      \vdots & \vdots & \ddots & \vdots & \vdots \\
+      0 & 0 & \dots & 1 & 0
+    \end{array}\!\right]\mathnormal{-\lambda I \right)}\end{math} = \begin{math}\mathnormal{(-1^n) \left[ \lambda^n-\displaystyle\sum_{j=0}^{n-1}\alpha_j\lambda^j \right]}\end{math}
+
+\end{center}
+
+We begin by simplifying the left hand side
+
+\begin{center}
+
+\begin{math}\mathnormal{det\left(}\left[\!
+    \begin{array}{cccCC}
+      \alpha_{n-1} & \alpha_{n-2} & \dots & \alpha_1 & \alpha_0 \\
+      1 & 0 & \dots & 0 & 0 \\
+      0 & 1 & \dots & 0 & 0 \\
+      \vdots & \vdots & \ddots & \vdots & \vdots \\
+      0 & 0 & \dots & 1 & 0
+    \end{array}\!\right]\mathnormal{-\lambda I \right)}\end{math}
+
+\bigbreak
+    
+= \begin{math}\left|\!
+    \begin{array}{cccCC}
+      \alpha_{n-1}-\lambda & \alpha_{n-2} & \dots & \alpha_1 & \alpha_0 \\
+      1 & -\lambda & \dots & 0 & 0 \\
+      0 & 1 & \dots & 0 & 0 \\
+      \vdots & \vdots & \ddots & \vdots & \vdots \\
+      0 & 0 & \dots & 1 & -\lambda
+    \end{array}\!\right|\end{math}
+
+\end{center}
+
+We then multiply column 1 by \begin{math}\lambda\end{math} and add it to column 2:
+
+\begin{center}
+
+= \begin{math}\left|\!
+    \begin{array}{cccCC}
+      \alpha_{n-1}-\lambda & \alpha_{n-2}+\lambda \alpha_{n-1}-\lambda^2 & \dots & \alpha_1 & \alpha_0 \\
+      1 & -\lambda & \dots & 0 & 0 \\
+      0 & 1 & \dots & 0 & 0 \\
+      \vdots & \vdots & \ddots & \vdots & \vdots \\
+      0 & 0 & \dots & 1 & -\lambda
+    \end{array}\!\right|\end{math}
+
+\end{center}
+\bigbreak
+Following a similar process, we multiply column 2 by \begin{math}\lambda\end{math} and add it to the third column.
+
+\begin{center}
+
+=\begin{math}\left|\!
+    \begin{array}{cccccc}
+      \alpha_{n-1}-\lambda & \alpha_{n-2}+\lambda \alpha_{n-1}-\lambda^2 & \alpha_{n-3}+\lambda\alpha_{n-2}+\lambda^2\alpha_{n-1}-\lambda^3 & \dots & \alpha_1 & \alpha_0 \\
+      1 & 0 & 0 & \dots & 0 & 0 \\
+      0 & 1 & 0 & \dots & 0 & 0 \\
+      \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+      0 & 0 & 0 & \dots & 1 & -\lambda
+    \end{array}\!\right|\end{math}
+
+\end{center}
+
+We repeat this process until we get to the (n-1)th column, where we again will multiply it by \begin{math}\lambda\end{math}, and add it to the nth column:
+
+\begin{center}
+
+=\begin{math}\left|\!
+    \begin{array}{cccc}
+      \alpha_{n-1}-\lambda & \dots & \alpha_1+\alpha_2\lambda+\dots+\lambda^{n-2}\alpha{n-1}-\lambda^{n-1} & \alpha_0+\lambda\alpha_1+\dots+\lambda^{n-1}\alpha_{n-1}-\lambda^n\\
+      1 & \dots & 0 & 0 \\
+      0 & \ddots & 0 & 0 \\
+      0 & \dots & 1 & 0
+    \end{array}\!\right|\end{math}
+
+\end{center}
+
+Simplifying we find:
+
+\begin{center}
+
+\begin{math}\mathnormal{=(x_{n-1}-\lambda)}\end{math} \begin{math}\left|\!
+    \begin{array}{ccccc}
+      0 & 0 & \dots & 0 & 0 \\
+      1 & 0 & \dots & 0 & 0 \\
+      \vdots & \vdots & \ddots & \vdots & \vdots \\
+      0 & \dots & \dots & 1 & 0 \\
+    \end{array}\!\right|\end{math} +
+    
+    \begin{math}\mathnormal{+(-1)^{2-1}(\alpha_{n-2}+\lambda\alpha_{n-1}-\lambda^2)}\end{math}\begin{math}\left|\!
+    \begin{array}{ccccc}
+      1 & 0 & \dots & 0 & 0 \\
+      0 & 0 & \dots & 0 & 0 \\
+      \vdots & \vdots & \ddots & \vdots & \vdots \\
+      0 & \dots & \dots & 1 & 0 \\
+    \end{array}\!\right|\end{math} + \begin{math}\mathnormal{\dots}\end{math}
+    
+    +\begin{math}\mathnormal{(-1)^{n-1}(\alpha_0+\lambda\alpha_1+\dots+\lambda^{n-1}\alpha_{n-1}-\lambda^n)}\end{math}\begin{math}\left|\!
+    \begin{array}{cccc}
+      1 & 0 & \dots & 0 \\
+      0 & 1 & \dots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \dots & 1 \\
+    \end{array}\!\right|\end{math}
+
+\end{center}
+
+All of the determinants here are zero (with the exception of the last one), as in every determinant there is a zero row. Since each of those determinants has a zero row within it, its determinant is zero.
+
+\begin{center}
+
+\begin{math}\mathnormal{=(x_{n-1}-\lambda)}\end{math} \begin{math}\left|\!
+    \begin{array}{ccccc}
+      0 & 0 & \dots & 0 & 0 \\
+      1 & 0 & \dots & 0 & 0 \\
+      \vdots & \vdots & \ddots & \vdots & \vdots \\
+      0 & \dots & \dots & 1 & 0 \\
+    \end{array}\!\right|\end{math} +
+    
+    \begin{math}\mathnormal{+(-1)^{2-1}(\alpha_{n-2}+\lambda\alpha_{n-1}-\lambda^2)}\end{math}\begin{math}\left|\!
+    \begin{array}{ccccc}
+      1 & 0 & \dots & 0 & 0 \\
+      0 & 0 & \dots & 0 & 0 \\
+      \vdots & \vdots & \ddots & \vdots & \vdots \\
+      0 & \dots & \dots & 1 & 0 \\
+    \end{array}\!\right|\end{math} + \begin{math}\mathnormal{\dots}\end{math}
+    
+    +\begin{math}\mathnormal{(-1)^{n-1}(\alpha_0+\lambda\alpha_1+\dots+\lambda^{n-1}\alpha_{n-1}-\lambda^n)}\end{math}\begin{math}\left|\!
+    \begin{array}{cccc}
+      1 & 0 & \dots & 0 \\
+      0 & 1 & \dots & 0 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & \dots & 1 \\
+    \end{array}\!\right|\end{math}
+\bigbreak
+    
+= \begin{math}\mathnormal{0+0+0+\dots+0+(-1)^{n-1}(\alpha_0+\alpha_1\lambda+\dots+\alpha_{n-1}\lambda^{n-1}-\lambda^n)}\end{math}
+
+\end{center}
+
+Given the above equation, we simplify and solve:
+
+\begin{center}
+
+\begin{math}\mathnormal{=(-1)^n(\lambda^n-\alpha_{n-1}\lambda^{n-1}-\alpha_{n-2}\lambda^{n-2}-\dots-\alpha_1\lambda-\alpha_0}\end{math}
+
+\begin{math}\mathnormal{=(-1)^n(\lambda^n-\alpha_0-\alpha_1\lambda-\dots-\alpha_{n-1}\lambda^{n-1}}\end{math}
+\bigbreak
+\begin{math}\mathnormal{=(-1)^n\left[ \lambda^n-\displaystyle\sum_{j=0}^{n-1}\alpha_j\lambda^j \right]}\end{math}
+
+\end{center}
+
+Thus, we have proved that:
+
+\begin{center}
+
+\begin{math}\mathnormal{det\left(}\left[\!
+    \begin{array}{cccCC}
+      \alpha_{n-1} & \alpha_{n-2} & \dots & \alpha_1 & \alpha_0 \\
+      1 & 0 & \dots & 0 & 0 \\
+      0 & 1 & \dots & 0 & 0 \\
+      \vdots & \vdots & \ddots & \vdots & \vdots \\
+      0 & 0 & \dots & 1 & 0
+    \end{array}\!\right]\mathnormal{-\lambda I \right)}\end{math} = \begin{math}\mathnormal{(-1^n) \left[ \lambda^n-\displaystyle\sum_{j=0}^{n-1}\alpha_j\lambda^j \right]}\end{math}
+
+\end{center}
+
+
+
+
+
+
+\section{Exercise 10}
+
+We are given the linear system \begin{math}\mathnormal{Ax=b}\end{math}, but instead we want to use \begin{math}\mathnormal{(A-E)(x-e)=b}\end{math} to show that
+
+\begin{center}
+
+\begin{math}\mathnormal{\frac{\|e\|}{\|x-e\|}\leq \|A\|\|A^{-1}\|\frac{\|E\|}{\|A\|}}\end{math}
+
+\end{center}
+
+To do this, we follow this process:
+
+\begin{center}
+
+\begin{math}\mathnormal{Ax=b}\end{math}
+\bigbreak
+
+\begin{math}\mathnormal{Ae=r}\end{math} and \begin{math}\mathnormal{e=A^{-1}}\end{math}
+\bigbreak
+
+\begin{math}\mathnormal{(A-E)(x-e)=b}\end{math}
+
+\begin{math}\mathnormal{A(x-e)-E(x-e)=b}\end{math}
+
+\begin{math}\mathnormal{Ax-Ae-b=E(x-e)}\end{math}
+
+\begin{math}\mathnormal{-r=E(x-e)}\end{math}
+
+\bigbreak
+\begin{math}\mathnormal{\|e\|\leq \|A^{-1}\|\|r\|}\end{math}
+
+\begin{math}\mathnormal{\|r\|\leq \|E\|\|(x-e)\|}\end{math}
+
+\bigbreak
+\begin{math}\mathnormal{\frac{\|e\|}{\|E\|\|(x-e)\|}\leq \frac{\|A^{-1}\|\|r\|}{\|r\|}}\end{math}
+
+\begin{math}\mathnormal{\frac{\|e\|}{\|(x-e)\|}\leq \|A^{-1}\|\|E\|}\end{math}
+
+(We can see that \begin{math}\mathnormal{\|A^{-1}\|\|E\|=\|A\|\|A^{-1}\|\frac{\|E\|}{\|A\|}}\end{math} thus,)
+\bigbreak
+\begin{math}\mathnormal{\frac{\|e\|}{\|x-e\|}\leq \|A\|\|A^{-1}\|\frac{\|E\|}{\|A\|}}\end{math}
+\end{center}
+
+This being the desired answer, and the process shown. We conclude that the statement is true.
+
+\end{document}
