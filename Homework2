@@ -1,0 +1,790 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{array}
+\usepackage{mathtools}
+\usepackage{amsthm,amssymb}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{float}
+
+\newenvironment{solution}
+  {\renewcommand\qedsymbol{$\blacksquare$}\begin{proof}[Solution]}
+  {\end{proof}}
+
+\newcolumntype{C}{>{{}}c<{{}}}
+
+\title{Homework 2 MATH 5610}
+\author{Elizabeth Maynard, Morgan Kelley}
+\date{September 2021}
+\graphicspath{{Images/}}
+
+\begin{document}
+
+\maketitle
+
+\section{Exercise 1}
+
+We know that the Taylor's series formula for a function centered at 0 is
+
+\begin{center}
+
+\begin{math}\mathnormal{f(x)=f(0)+\frac{f'(0)}{1!}x+\frac{f''(0)}{2!}x^2+\frac{f'''(0)}{3!}x^3+...}\end{math}
+
+\end{center}
+
+To get \begin{math}\mathnormal{p_n}\end{math} for the Taylor Series of \begin{math}\mathnormal{f(x)=e^x}\end{math} centered at \begin{math}\mathnormal{x_0=0}\end{math}, we can first arrange a table to get the values of the derivatives at \begin{math}\mathnormal{x_0=0}\end{math}
+
+\begin{center}
+\color{blue}
+\begin{tabularx}{0.4\textwidth} { 
+  | >{\raggedright\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\raggedleft\arraybackslash}X | }
+ \hline
+  \begin{math}\mathnormal{f(x)=e^x}\end{math} & \begin{math}\mathnormal{f(0)=1}\end{math}  \\
+ \hline
+ \begin{math}\mathnormal{f'(x)=e^x}\end{math} & \begin{math}\mathnormal{f'(0)=1}\end{math}   \\
+  \hline
+ \begin{math}\mathnormal{f''(x)=e^x}\end{math}  & \begin{math}\mathnormal{f''(0)=1}\end{math}   \\
+  \hline
+ \begin{math}\mathnormal{f'''(x)=e^x}\end{math}  & \begin{math}\mathnormal{f'''(0)=1}\end{math}   \\
+  \hline
+ \begin{math}\mathnormal{f^{(4)}(x)=e^x}\end{math}  & \begin{math}\mathnormal{f^{(4)}(0)=1}\end{math}   \\
+\hline
+ \begin{math}\mathnormal{f^{(5)}(x)=e^x}\end{math}  & \begin{math}\mathnormal{f^{(5)}(0)=1}\end{math}   \\
+\hline
+  \begin{math}\mathnormal{f^{(6)}(x)=e^x}\end{math}  & \begin{math}\mathnormal{f^{(6)}(0)=1}\end{math}   \\
+\hline
+  \begin{math}\mathnormal{f^{(7)}(x)=e^x}\end{math}  & \begin{math}\mathnormal{f^{(7)}(0)=1}\end{math}   \\
+\hline
+
+\end{tabularx}
+
+\end{center}
+
+Plugging in the values from the table above into the Taylor's series formula for \begin{math}\mathnormal{f(x)=e^x}\end{math}, we obtain the formula
+
+\begin{center}
+
+\begin{math}\mathnormal{p_n=f(0)+\frac{f'(0)}{1!}x+\frac{f''(0)}{2!}x^2+\frac{f'''(0)}{3!}x^3+...}\end{math}
+\begin{math}\mathnormal{=1+\frac{1}{1!}x+\frac{1}{2!}x^2+\frac{1}{3!}x^3+\frac{1}{4!}x^4+\frac{1}{5!}x^5+\frac{1}{6!}x^6+\frac{1}{7!}x^7+...}\end{math}
+
+\end{center}
+
+So our formula of the function \begin{math}\mathnormal{f(x)=e^x}\end{math} at \begin{math}\mathnormal{x_0=0}\end{math} is
+
+\begin{center}
+
+\begin{math}\mathnormal{p_n=1+\frac{1}{1!}x+\frac{1}{2!}x^2+\frac{1}{3!}x^3+\frac{1}{4!}x^4+\frac{1}{5!}x^5+\frac{1}{6!}x^6+\frac{1}{7!}x^7+O(8) ==\displaystyle\sum_{i=1}^{\infty}\frac{x^n}{n!}}\end{math}
+
+\end{center}
+
+Our plots for the Taylor Approximations goes as follows
+\bigbreak
+\bigbreak
+For \begin{math}\mathnormal{n=3}\end{math}
+\begin{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm]{snipn3.jpg}
+    \caption{Taylor approximation where n=3}
+    \label{fig:n3}
+\end{figure}
+\end{center}
+
+\bigbreak
+
+For \begin{math}\mathnormal{n=7}\end{math}
+\begin{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm]{snipn7.jpg}
+    \caption{Taylor approximation where n=7}
+    \label{fig:n7}
+\end{figure}
+\end{center}
+
+We can see that a higher n leads to a closer accurate approximation of the function. Knowing this, we can determine that we would need to find more terms of the Taylor Series approximating \begin{math}\mathnormal{f(x)=e^x}\end{math}
+
+\bigbreak
+\bigbreak
+We know that the Taylor's series formula for a function centered at 0 is again
+
+\begin{center}
+
+\begin{math}\mathnormal{f(x)=f(0)+\frac{f'(0)}{1!}x+\frac{f''(0)}{2!}x^2+\frac{f'''(0)}{3!}x^3+...}\end{math}
+
+\end{center}
+
+To get \begin{math}\mathnormal{q_n}\end{math} for the Taylor Series of \begin{math}\mathnormal{g(x)=ln(x+1)}\end{math} centered at \begin{math}\mathnormal{x_0=0}\end{math}, we again first arrange a table to get the values of the derivatives at \begin{math}\mathnormal{x_0=0}\end{math}
+
+\begin{center}
+\color{blue}
+\begin{tabularx}{0.5\textwidth} { 
+  | >{\raggedright\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\raggedleft\arraybackslash}X | }
+ \hline
+  \begin{math}\mathnormal{g(x)=ln(x+1)}\end{math} & \begin{math}\mathnormal{g(0)=0}\end{math}  \\
+ \hline
+ \begin{math}\mathnormal{g'(x)=\frac{1}{x+1}}\end{math} & \begin{math}\mathnormal{g'(0)=1}\end{math}   \\
+  \hline
+ \begin{math}\mathnormal{g''(x)=\frac{-1}{(x+1)^2}}\end{math}  & \begin{math}\mathnormal{g''(0)=-1}\end{math}   \\
+  \hline
+ \begin{math}\mathnormal{g'''(x)=\frac{2}{(x+1)^3}}\end{math}  & \begin{math}\mathnormal{g'''(0)=2}\end{math}   \\
+  \hline
+ \begin{math}\mathnormal{g^{(4)}(x)=\frac{-6}{(x+1)^4}}\end{math}  & \begin{math}\mathnormal{g^{(4)}(0)=-6}\end{math}   \\
+\hline
+ \begin{math}\mathnormal{g^{(5)}(x)=\frac{24}{(x+1)^5}}\end{math}  & \begin{math}\mathnormal{g^{(5)}(0)=24}\end{math}   \\
+\hline
+  \begin{math}\mathnormal{g^{(6)}(x)=\frac{-120}{(x+1)^6}}\end{math}  & \begin{math}\mathnormal{g^{(6)}(0)=-120}\end{math}   \\
+\hline
+  \begin{math}\mathnormal{g^{(7)}(x)=\frac{720}{(x+1)^7}}\end{math}  & \begin{math}\mathnormal{g^{(7)}(0)=720}\end{math}   \\
+\hline
+
+\end{tabularx}
+
+\end{center}
+
+Plugging in the values from the table above into the Taylor's series formula for \begin{math}\mathnormal{g(x)=ln(x+1)}\end{math}, we obtain the formula
+
+\begin{center}
+
+\begin{math}\mathnormal{q_n=g(0)+\frac{g'(0)}{1!}x+\frac{g''(0)}{2!}x^2+\frac{g'''(0)}{3!}x^3+...}\end{math}
+\begin{math}\mathnormal{=0+\frac{1}{1!}x-\frac{1}{2!}x^2+\frac{2}{3!}x^3-\frac{6}{4!}x^4+\frac{24}{5!}x^5-\frac{120}{6!}x^6+\frac{720}{7!}x^7+...}\end{math}
+\begin{math}\mathnormal{=x-\frac{1}{2}x^2+\frac{1}{3}x^3-\frac{1}{4}x^4+\frac{1}{5}x^5-\frac{1}{6}x^6+\frac{1}{7}x^7+...}\end{math}
+
+\end{center}
+
+So our formula of the function \begin{math}\mathnormal{g(x)=ln(x+1)}\end{math} at \begin{math}\mathnormal{x_0=0}\end{math} is
+
+\begin{center}
+
+\begin{math}\mathnormal{q_n=x-\frac{1}{2}x^2+\frac{1}{3}x^3-\frac{1}{4}x^4+\frac{1}{5}x^5-\frac{1}{6}x^6+\frac{1}{7}x^7-O(8) =\displaystyle\sum_{i=1}^{\infty}(-1)^{n+1}\frac{x^n}{n}}\end{math}
+
+\end{center}
+
+Our plots for the Taylor Approximations goes as follows
+\bigbreak
+\bigbreak
+For \begin{math}\mathnormal{n=3}\end{math}
+\begin{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm]{snipn32.jpg}
+    \caption{Taylor approximation where n=3}
+    \label{fig:n32}
+\end{figure}
+\end{center}
+
+\bigbreak
+
+For \begin{math}\mathnormal{n=6}\end{math}
+\begin{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=9cm]{snipn6.jpg}
+    \caption{Taylor approximation where n=6}
+    \label{fig:n6}
+\end{figure}
+\end{center}
+
+And we can again see from above that the approximation gets more accurate the higher n is. However, the n approximation in this case does change direction given whether n is even or odd, concave down if even, concave up is n is odd. That being said, for a more accurate approximation we do need more terms of the Taylor Series.
+
+As for the error and its relation to the Taylor Equations, we know that the error for a Taylor polynomial is bounded through the remainder function
+
+\begin{center}
+
+\begin{math}\mathnormal{|f(x)-T_n(x)|\leq R_n(x)=e^x\frac{x^n}{n!}}\end{math}
+
+and
+
+\begin{math}\mathnormal{|g(x)-T_n(x)|\leq R_n(x)=ln(x+1)(-1)^{n+1}\frac{x^n}{n}}\end{math}
+
+\end{center}
+
+In this, \begin{math}\mathnormal{T_n(x)}\end{math} is our Taylor polynomial for the functions
+\begin{center}
+\begin{math}\mathnormal{f(x)=e^x}\end{math} or \begin{math}\mathnormal{g(x)=ln(x+1)}\end{math}. 
+\end{center}
+We can see that as \begin{math}\mathnormal{n \rightarrow \infty}\end{math}, then \begin{math}\mathnormal{|f(x)-T_n(x)| \rightarrow 0}\end{math} and \begin{math}\mathnormal{|g(x)-T_n(x)| \rightarrow 0}\end{math} as well. So we can tell that for smaller values of \begin{math}\mathnormal{n}\end{math}, our error is smaller nearer to the point \begin{math}\mathnormal{x_0=0}\end{math}, and then the error gets larger the further away we get from that point.
+
+
+\section{Exercise 2}
+A matrix A is positive definite if it is symmetric and \begin{math}
+x^TAX>0 \forall x \neq 0. \end{math} We can write a principal sub matrix as a subset of I \begin{math} 
+\subset {1, 2, \cdots , n}. 
+\end{math}
+Suppose the subset has k elements. Then we can let
+
+\begin{math}
+ x = 
+ \begin{bmatrix}
+  x_1 \\
+  x_2 \\
+  \vdots    \\
+  x_k \\
+  0\\
+  \vdots \\
+  0 \\
+ \end{bmatrix}
+\end{math}
+
+\begin{math}
+x^T= 
+ \begin{bmatrix}
+  x_1 & x_2 & \cdots & x_k & 0 & \cdots & 0\\
+
+ \end{bmatrix}
+\end{math}
+
+Note that A is nxn, x is nx1 and
+\begin{math}x^T 
+\end{math} is 1xn. 
+
+\begin{math}
+x^TA = 
+\begin{bmatrix}
+  a_{11}x_1 + a_{21}x_2 + \cdots + a_{k1}x_k & \cdots & a_{1k}x_1 + a_{2k}x_2 + \cdots + a_{kk}x_k  & 0 & \cdots & 0\\
+ 
+\end{bmatrix}
+\end{math}. 
+
+Right side multiplying with x yields
+\begin{math}
+x^TAx = \displaystyle\sum_{i=1}^{k} a_{ii}x_i^2 + \displaystyle\sum_{i,j=1, i \neq j}^{k} a_{ij}x_i
+\end{math}. 
+The \begin{math}x_i\end{math} term will be squared, so even if \begin{math} x_i\end{math} is negative, the square will yield a positive result. Thus \begin{math}
+x^TAx > 0  \forall x >0.
+\end{math}
+
+
+\section{Exercise 3}
+
+To understand the UL factorization, we can consider the permutation matrix,\begin{math}\mathnormal{P}\end{math} (where \begin{math}\mathnormal{P}\end{math} is the matrix with 1's along the opposite diagonal, and 0's elsewhere), where we understand
+
+\begin{center}
+
+\begin{math}\mathnormal{A^T=PAP^T}\end{math}
+\begin{math}\mathnormal{\implies PP^T=P^TP=I}\end{math}
+
+\end{center}
+
+We next determine that \begin{math}\mathnormal{A^T=PAP^T=L_0U_0}\end{math}, and consider \begin{math}\mathnormal{L_0U_0}\end{math} to be the LU decomposition of \begin{math}\mathnormal{A^T}\end{math}
+
+Thus,
+\begin{center}
+
+Given \begin{math}\mathnormal{U=L_0^T}\end{math} and
+\begin{math}\mathnormal{L=U_0^T}\end{math}
+\bigbreak
+
+\begin{math}\mathnormal{\implies L_0U_0=PUP^TPLP^T}\end{math}
+and
+\begin{math}\mathnormal{\implies =PULP^T=PAP^T}\end{math}
+\begin{math}\mathnormal{\implies A=UL}\end{math}
+
+\end{center}
+
+This being since \begin{math}\mathnormal{U}\end{math} and \begin{math}\mathnormal{L}\end{math} have 1's along their diagonals.
+
+\bigbreak
+
+Therefore, this means that \begin{math}\mathnormal{Ax=ULx=b}\end{math} can also be written as \begin{math}\mathnormal{Lx=y}\end{math} and \begin{math}\mathnormal{Uy=b}\end{math}
+
+\section{Exercise 4}
+
+We want to find a linear function such that \begin{math}
+\int_0^1 \mathrm({e}^x - l(x))^2,\mathrm{d}x = min
+\end{math}. Let \begin{math} F(x) = ({e}^x - l(x))^2.
+\end{math} Then \begin{math}
+\nabla F(m,b) = [\frac{\partial F}{\partial m}, \frac{\partial F}{\partial b}] = [\int_0^1 \mathrm{\frac{\partial F}{\partial m}}\mathrm{d}x , \int_0^1 \mathrm{\frac{\partial F}{\partial b}}\mathrm{d}x ] \end{math}
+
+\begin{math}
+= [-2+\frac{2m}{3} +b, -2e+m+2b+2].
+\end{math} Setting equal to zero and solving the system of equations gives a solution of m and b as (18-6e, 4e-10), respectively. Thus, the linear equation that minimizes the given function is \begin{math}
+L(x) = (18-6e)x +4e -10.
+\end{math}
+
+\section{Exercise 5}
+Because \begin{math}
+e^x\end{math} is exponential and \begin{math}
+L(x) = mx+b\end{math} is linear, we can assume L(x) intersects \begin{math}
+e^x\end{math} twice, at \begin{math}\zeta \end{math} and \begin{math}\eta.\end{math}
+To get rid of the absolute value, note that
+\begin{math}
+F(x) = \int_0^1 \mathrm{|e^x - l(x)|}\,\mathrm{d}x = \int_0^\zeta \mathrm{e^x - l(x)}\,\mathrm{d}x -\int_\zeta^\eta \mathrm{e^x - l(x)}\,\mathrm{d}x +\int_ \eta^1\mathrm{e^x - l(x)}\,\mathrm{d}x
+\end{math}. We now have the four variables \begin{math}
+m, b, \zeta, \eta. \end{math}, however because m and b depend on \begin{math}
+\zeta\end{math} and \begin{math}\eta\end{math}, we can just work with the functions \begin{math}
+\zeta(m,b)\end{math} and \begin{math}\eta(m,b)\end{math}. 
+Let \begin{math} f(x) = e^x - l(x)\end{math}. Then
+ \begin{math}
+\nabla F(x) = 0 = [ \frac{\partial}{\partial m }(\int_0^\zeta \mathrm{e^x - l(x)}\,\mathrm{d}x -\int_\zeta^\eta \mathrm{e^x - l(x)}\,\mathrm{d}x +\int_ \eta^1\mathrm{e^x - l(x)}\,\mathrm{d}x), \end{math}
+\begin{math}
+\frac{\partial}{\partial b }(\int_0^\zeta \mathrm{e^x - l(x)}\,\mathrm{d}x -\int_\zeta^\eta \mathrm{e^x - l(x)}\,\mathrm{d}x +\int_ \eta^1\mathrm{e^x - l(x)}\,\mathrm{d}x)] = [\eta^2 -\zeta^2 - \frac{1}{2}, 2\eta -2\zeta -1] = [\frac{1}{4}, \frac{3}{4}].\end{math} Inputting this into the initial equation yields an m and b of \begin{math}
+[2e^{\frac{3}{4}} - 4e^{\frac{1}{4}}, 3e^{\frac{1}{4}} - \frac{1}{2}e^{\frac{3}{4}}] \approx [-0.902, 2.794].
+\end{math} Thus, the linear function that minimizes \begin{math}
+\int_0^1 \mathrm{|e^x - l(x)|}\,\mathrm{d}x\end{math} is \begin{math}
+L(x) \approx -0.902x + 2.794.\end{math}
+
+
+
+
+
+
+\section{Exercise 6}
+
+
+
+Similarly to problem 5, 
+because \begin{math}
+e^x\end{math} is exponential and \begin{math}
+L(x) = mx+b\end{math} is linear, we can assume L(x) intersects \begin{math}
+e^x\end{math} twice, at \begin{math}\zeta \end{math} and \begin{math}\eta.\end{math} Lets call \begin{math}
+r(x) = e^x -mx - b 
+\end{math} the error. We want to find the linear function that minimizes the error between itself and the exponential between \begin{math}
+(0, \zeta), (\zeta, \eta),\end{math} and \begin{math} (\eta, 1). 
+\end{math} Note that when our function is minimized, \begin{math}
+r(0) = r(1) = r(\alpha)\end{math}, where \begin{math}
+\alpha\end{math} is the x value where the function is minimized. 
+
+We have a solvable system of equations using the following constraints:
+\begin{displaymath}
+r(0) = 1-b \end{displaymath} \begin{displaymath}
+r(1) = e - m -b\end{displaymath}\begin{displaymath} -r(\alpha) = m\alpha+b - e^{\alpha}
+\end{displaymath}
+\begin{displaymath}
+r'(\alpha) = e^\alpha - m= 0
+\end{displaymath}
+
+Solving yields \begin{math}
+m= e-1 , b = \frac{e-(e-1)(ln(e-1)}{2}, \alpha = ln(e-1)
+\end{math} 
+Thus, the linear function that minimizes the given function is \begin{math} L(x) = (e-1)x + \frac{e-(e-1)(ln(e-1)}{2}.
+\end{math} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Exercise 7}
+
+We should not buy Meg's program. This is because the numerical effort is already tricky enough to get below \begin{math}\mathnormal{O(n^3)}\end{math}, much less below \begin{math}\mathnormal{O(n^2)}\end{math}, so we should demand to see the program first.
+
+Furthermore, in relation to how it cannot go below \begin{math}\mathnormal{O(n^2)}\end{math} iterations, we have to do the dot product between all columns and rows, where \begin{math}\mathnormal{i}\end{math} and \begin{math}\mathnormal{j}\end{math} both go from \begin{math}\mathnormal{1\rightarrow n}\end{math} and thus requires, at the very least, \begin{math}\mathnormal{O(n^2)}\end{math} iterations.
+
+\section{Exercise 8}
+
+Let \begin{math}
+f(x) = x^3 - 5x. 
+\end{math}
+Then \begin{math}
+f'(x) = 3x^2 - 5. 
+\end{math}
+Suppose we want to estimate \begin{math}
+f(2.3336)
+\end{math}. An initial guess may give \begin{math}
+x_0 = 1.
+\end{math}
+Using Newton's method, \begin{math}
+x_1 = x_0 - \frac{f(x)}{f'(x)}. \end{math} In this case \begin{math}
+x_1 = -1. 
+\end{math}
+If we continue to the next iteration, \begin{math}
+x_2 = 1, \end{math} which creates a cycle of 1's and -1's.
+
+
+
+
+
+\section{Exercise 9}
+
+To solve the problem of having to divide by zero, we will create a fixed point iteration that only uses addition, subtraction, and multiplication through the following
+
+\begin{center}
+\begin{math}\mathnormal{f(x) = \frac{1}{r} = x}\end{math}
+
+
+\begin{math}\mathnormal{\Rightarrow 1 = xr}\end{math}
+
+\begin{math}\mathnormal{\Rightarrow \frac{1}{x} = r}\end{math}
+
+\begin{math}\mathnormal{\Rightarrow \frac{1}{x} - r = 0}\end{math}
+\end{center}
+
+\bigbreak
+\begin{center}
+\begin{math}\mathnormal{f^\prime (x) = \frac{-1}{x^2}}\end{math}
+\end{center}
+
+\bigbreak
+
+
+\begin{center}
+\begin{math}\mathnormal{x_{n+1}= x_n - \frac{f(x_n)}{f^\prime(x_n)}}\end{math}
+
+\begin{math}\mathnormal{= x_n - \frac{\frac{1}{x_n} - r}{\frac{-1}{x_n^2}}}\end{math}
+
+\begin{math}\mathnormal{= x_n +(\frac{1}{x_n} - r)x_n^2}\end{math}
+\bigbreak
+\begin{math}\mathnormal{x_{n+1}= x_n(2 - x_nr)}\end{math}
+\end{center}
+
+So our fixed point iteration (so that we don't have to do any dividing by 0) results in \begin{math}\mathnormal{x_{n+1}=x_n(2-x_nr)}\end{math} as our iteration scheme.
+
+
+
+
+\section{Exercise 10}
+a)
+\bigbreak
+\begin{math}\mathnormal{
+A = 
+ \begin{pmatrix}
+  2 & -1  & 0 & \cdots & 0 \\
+  -1  & \ddots & \ddots & \ddots & \vdots \\
+  0 & \ddots  & \ddots  & \ddots & 0  \\
+  \vdots & \ddots & \ddots & \ \ddots & -1\\
+  0 &  \cdots & 0 & -1 & 2 \\
+ \end{pmatrix}
+}\end{math}
+\bigbreak
+
+
+
+\bigbreak
+\begin{math}\mathnormal{
+A^{-1} = 
+ \begin{pmatrix}
+  \frac{n}{n+1} & \frac{n-1}{n+1}  & \cdots & \frac{2}{n+1} & \frac{1}{n+1} \\
+  \frac{n-1}{n+1} & \ddots & \ddots & \ddots & \frac{2}{n+1} \\
+  \vdots & \ddots  & \ddots  & \ddots & \vdots \\
+  \frac{2}{n+1} & \ddots & \ddots & \ \ddots & \frac{n-1}{n+1}\\
+  \frac{1}{n+1} &  \frac{2}{n+1} & \ddots & \frac{n-1}{n+1} & \frac{n}{n+1} \\
+ \end{pmatrix}
+}\end{math}
+\bigbreak
+
+If \begin{math} A^{-1}\end{math} is indeed \begin{math}
+= [x_{ij}]\end{math}, then \begin{math}
+AA^{-1} = I
+\end{math}. Let's check.
+\bigbreak
+\begin{math}\mathnormal{
+AA^{-1} = 
+ \begin{pmatrix}
+  \frac{2n-(n-1)}{n+1} & \frac{2(n-1) + 2(1-n)}{n+1}  & 0 & \cdots &0\\
+  \frac{-n +2(n-1) -(n-2)}{n+1} & \frac{1-n+ 2(2n-2)-2(n-2)}{n+1} & \vdots & \ddots & 0 \\
+  0 & 0  & \ddots  & \ddots & \vdots \\
+  \vdots & \ddots & \ddots & \ \ddots & 0\\
+ 0 &  0 & \cdots & 0 & \frac{1-n+2n}{n+1} \\
+ \end{pmatrix}
+}\end{math}. 
+\bigbreak
+When simplified, this does indeed equal the identity matrix I. 
+\bigbreak
+
+b) We need to verify that the given L and U satisfy the equation \begin{math}
+A= LU.
+\end{math}
+\bigbreak
+\begin{math}\mathnormal{
+L = 
+ \begin{pmatrix}
+ 1 & 0  & \cdots & \cdots   & 0\\
+  \frac{-1}{2} & 1 & \ddots & \cdots & \vdots \\
+   0    & \frac{-2}{3}  & 1 & \ddots & 0 \\
+  \vdots & \ddots & \ddots &  \ddots & 0\\
+  0 &  0 & \ddots & \frac{1-i}{i} & 1 \\
+ \end{pmatrix}
+}\end{math}
+
+
+\bigbreak
+\begin{math}\mathnormal{
+U = 
+ \begin{pmatrix}
+ 2 & -1  & 0 & \cdots   & 0\\
+  0 & \frac{3}{2} & -1 & \ddots & \vdots \\
+   \vdots & \ddots   & \frac{4}{3}  & \ddots &\vdots \\
+  \vdots & \ddots & \ddots &  \ddots & -1\\
+  0 &  \ddots & \ddots & \ddots& \frac{i+1}{i} \\
+ \end{pmatrix}
+}\end{math}
+\bigbreak
+
+\begin{math}\mathnormal{
+LU = 
+\begin{pmatrix}
+  2 & -1  & 0 & \cdots & 0 \\
+  -1  & \ddots & \ddots & \ddots & \vdots \\
+  0 & \ddots  & \ddots  & \ddots & 0  \\
+  \vdots & \ddots & \ddots & \ \ddots & -1\\
+  0 &  \cdots & 0 & -1 & 2 \\
+ \end{pmatrix}
+ = A
+}\end{math}
+\bigbreak
+
+c) In numerical analysis, we never want to invert a matrix. It is possible in smaller systems but for larger systems, it takes too much time and memory. Computing \begin{math}A^-1 \end{math} is 3 times as expensive as computing the LU factorization. In addition, when computing \begin{math}A^-1 \end{math}, we lose sparsity, which can be maintained when computing the LU factorization.
+
+
+
+
+
+
+
+\section{Exercise 11}
+We use Newton's method to solve a system, and we to do so we use a point that is close. We start by declaring
+
+\begin{center}
+
+\begin{math}\mathnormal{Ax=b}\end{math}
+\begin{math}\mathnormal{F(x)=0}\end{math}
+\begin{math}\mathnormal{\implies F(x)=Ax-b}\end{math}
+
+And knowing the Jacobian is
+
+\begin{math}\mathnormal{J(x)=A}\end{math}
+
+\end{center}
+
+We continue with applying Newton's Method
+
+\begin{center}
+
+\begin{math}\mathnormal{x^{(k+1)}=x^{(k)}-(J(x^{(k)}))^{-1}F(x^{k})}\end{math}
+
+\end{center}
+
+Continuing where we find \begin{math}\mathnormal{k=0}\end{math}
+
+\begin{center}
+
+\begin{math}\mathnormal{x^{(1)}=x^{(0)}-A^{-1}(Ax^{(0)}-b)}\end{math}
+\begin{math}\mathnormal{\implies =x^{(0)}-x^{(0)}+A^{-1}b}\end{math}
+
+\begin{math}\mathnormal{\implies =A^{-1}b=x}\end{math}
+
+\end{center}
+
+We replace the problem \begin{math}\mathnormal{Ax=b}\end{math} with itself, using Newton's Method. Which tells us nothing about it. As we can simply multiply by A and get the original system. So we still need to solve the problem.
+
+\section{Exercise 12}
+
+\begin{center}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=12cm]{codetwo.jpg}
+    \caption{The Code For Exercise 12}
+    \label{fig:n9}
+\end{figure}
+\end{center}
+
+\section{Exercise 13}
+
+From the exercise, we know that \begin{math}\mathnormal{f}\end{math} is sufficiently differentiable, and \begin{math}\mathnormal{f'(x)\neq 0}\end{math}. We also suppose that \begin{math}\mathnormal{g(\alpha)=\alpha}\end{math}. To show that \begin{math}\mathnormal{g'(\alpha)=g''(\alpha)=0}\end{math}, and through that the fixed point method will converge of order at least 3 if we start sufficiently close to \begin{math}\mathnormal{\alpha}\end{math}
+
+\begin{center}
+
+\begin{math}\mathnormal{g(x)=x-\frac{f(x)}{f'(x)}-\frac{f(x)^2f''(x)}{2f'(x)^3}}\end{math}
+\bigbreak
+\begin{math}\mathnormal{g'(x)=\frac{3f(x)^2f''(x)^2}{2f'(x)^4}-\frac{f(x)^2f^{(3)}(x)}{2f'(x)^3}}\end{math}
+\bigbreak
+\begin{math}\mathnormal{g'(\alpha)=\frac{3f(\alpha)^2f''(\alpha)^2}{2f'(\alpha)^4}-\frac{f(\alpha)^2f^{(3)}(\alpha)}{2f'(\alpha)^3}}\end{math}
+\bigbreak
+\begin{math}\mathnormal{=\frac{3(0)^2f''(\alpha)^2}{2f'(\alpha)^4}-\frac{(0)^2f^{(3)}(\alpha)}{2f'(\alpha)^3}}\end{math}
+\bigbreak
+\begin{math}\mathnormal{=\frac{0}{2f'(\alpha)^4}-\frac{0}{2f'(\alpha)^3}}\end{math}
+\bigbreak
+\begin{math}\mathnormal{=0}\end{math}
+\end{center}
+\bigbreak
+And when we also differentiate \begin{math}\mathnormal{g'(x)}\end{math}, we obtain a function that is also zero as well when \begin{math}\mathnormal{x=\alpha}\end{math} as \begin{math}\mathnormal{f(\alpha)=0}\end{math}.
+\begin{center}
+\begin{math}\mathnormal{g''(x)=\frac{3f(x)f''(x)^2}{f'(x)^3}-\frac{6f(x)^2f''(x)^3}{f'(x)^5}-\frac{f(x)^2f^{(4)}(x)}{2f'(x)^3}-\frac{f(x)f^{(3)}(x)}{f'(x)^2}+\frac{9f(x)^2f^{(3)}(x)f''(x)}{2f'(x)^4}}\end{math}
+\bigbreak
+\begin{math}\mathnormal{g''(\alpha)=0}\end{math}
+\end{center}
+
+\section{Exercise 14}
+
+We first remember our definition
+
+\begin{center}
+
+\begin{math}\mathnormal{\|A\|_1=\underset{\|x\|=1}{max}\|Ax\|_1}\end{math}
+
+\end{center}
+
+We also know that for a vector \begin{math}\mathnormal{x \in \mathbb{R}^n}\end{math}, we use the formula that finds the matrix-vector product
+
+\begin{center}
+
+\begin{math}\mathnormal{\|Ax\|_1=\displaystyle\sum_{i=1}^{n} |\displaystyle\sum_{j=1}^{n}a_{ij}x_j|}\end{math}
+
+\end{center}
+
+We then have to find the first column \begin{math}\mathnormal{j}\end{math} where,
+
+\begin{center}
+
+\begin{math}\mathnormal{\underset{j=1,...,n}{max}\displaystyle\sum_{i=1}^{n}|a_{ij}|=\displaystyle\sum_{i=1}^{n}|a_{ij}|}\end{math}
+
+\end{center}
+
+Now we choose a vector \begin{math}\mathnormal{x}\end{math} using the rule \begin{math}\mathnormal{x_j=1,x_i=0}\end{math} for \begin{math}\mathnormal{i\neq j}\end{math}. Given this \begin{math}\mathnormal{x}\end{math}, we find that
+
+\begin{center}
+
+\begin{math}\mathnormal{\|Ax\|_1=\displaystyle\sum_{i=1}^{n}|a_{ij}|=\underset{j=1,...,n}{max}\displaystyle\sum_{i=1}^{n}|a_{ij}|}\end{math}
+
+\end{center}
+
+Thus,
+
+\begin{center}
+
+\begin{math}\mathnormal{\|A\|_\infty \geq \underset{j=1,...,n}{max}\displaystyle\sum_{i=1}^{n}|a_{ij}|}\end{math}
+\bigbreak
+We now show the reverse inequality,
+
+\begin{math}\mathnormal{\|Ax\|_1=\displaystyle\sum_{i=1}^{n} |\displaystyle\sum_{j=1}^{n}a_{ij}x_j| \leq \displaystyle\sum_{j=1}^{n} \displaystyle\sum_{i=1}^{n}|a_{ij}x_j|=\displaystyle\sum_{j=1}^{n}|x_j|\displaystyle\sum_{i=1}^{n}|a_{ij}| \leq \displaystyle\sum_{j=1}^{n}|x_j|\underset{j=1,...,n}{max}\displaystyle\sum_{i=1}^{n}|a_{ij}|}\end{math}
+
+\begin{math}\mathnormal{\implies =\underset{j=1,...,n}{max}\displaystyle\sum_{i=1}^{n}|a_{ij}|}\end{math}
+
+\end{center}
+
+Our last inequality comes from \begin{math}\mathnormal{\|x\|_1=1}\end{math}, where we will take the maximum of the expression (over all of \begin{math}\mathnormal{\|x\|_1=1}\end{math}. This follows,
+
+\begin{center}
+
+\begin{math}\mathnormal{\|A\|_1 \leq \underset{j=1,...,n}{max}\displaystyle\sum_{i=1}^{n}|a_{ij}|}\end{math}
+
+\bigbreak
+
+
+\end{center}
+
+This finally shows that,
+
+\begin{center}
+
+\begin{math}\mathnormal{\|A\|_1 = \underset{j=1,...,n}{max}\displaystyle\sum_{i=1}^{n}|a_{ij}|}\end{math}
+
+\end{center}
+
+\section{Exercise 15}
+
+We know that for any two vectors \begin{math}\mathnormal{x}\end{math} and \begin{math}\mathnormal{y}\end{math},
+
+\begin{center}
+
+\begin{math}\mathnormal{\|x+y\| \leq \|x\| + \|y\|}\end{math}
+
+\end{center}
+
+From that we can obtain 
+
+\begin{center}
+\begin{math}\mathnormal{\|x\|=\|(x-y)+y\| \leq \|x-y\|+\|y\|}\end{math}
+
+\begin{math}\mathnormal{\implies \|x\|-\|y\| \leq \|x-y\|}\end{math}
+\bigbreak
+ \begin{math}\mathnormal{ \|x\|-\|y\| \leq \|x-y\|}\end{math}
+\begin{math}\mathnormal{\quad \rightarrow}\end{math} (1)
+\end{center}
+
+Which we can continue by finding similarly for y,
+
+\begin{center}
+
+\begin{math}\mathnormal{\|y\|=\|(y-x)+x\| \leq \|y-x\|+\|x\|}\end{math}
+
+\begin{math}\mathnormal{\implies -\|y-x\| \leq \|x\| - \|y\|}\end{math}
+\bigbreak
+ \begin{math}\mathnormal{ -\|y-x\| \leq \|x\| - \|y\|}\end{math}
+\begin{math}\mathnormal{\quad \rightarrow}\end{math} (2)
+\end{center}
+
+We can, from (1) and (2), now find that
+
+\begin{center}
+
+\begin{math}\mathnormal{-\|y-x\| \leq \|x\|-\|y\| \leq \|x-y\|}\end{math}
+
+\begin{math}\mathnormal{\implies -\|x-y\| \leq \|x\| - \|y\| \leq \|x-y\|}\end{math}
+
+(This because we know that \begin{math}\mathnormal{\|z\|=\|-z\| \forall{z} }\end{math} and \begin{math}\mathnormal{z=x-y}\end{math})
+
+\end{center}
+
+Thus,
+\begin{center}
+
+\begin{math}\mathnormal{\|x-y\| \geq |\|x\|-\|y\||}\end{math}
+
+\end{center}
+
+\bigbreak
+\bigbreak
+\bigbreak
+We also now find that again,
+
+\begin{center}
+
+\begin{math}\mathnormal{\|x\|=\|(x+y)-y\| \leq \|x+y\|+\|-y\|}\end{math}
+
+\begin{math}\mathnormal{\implies \|x\|-\|-y\| \leq \|x+y\|}\end{math}
+\bigbreak
+
+\begin{math}\mathnormal{\implies \|x\|-\|y\| \leq \|x+y\| \quad \rightarrow}\end{math} (3)
+(We know that \begin{math}\mathnormal{\|y\|=\|-y\|}\end{math})
+
+\end{center}
+
+We can, again, similarly continue to find for y that,
+
+\begin{center}
+
+\begin{math}\mathnormal{\|y\|=\|(y+x)-x\| \leq \|y+x\| + \|x\|}\end{math}
+
+\begin{math}\mathnormal{\implies -\|y+x\| \leq \|-x\|-\|y\|}\end{math}
+
+\begin{math}\mathnormal{-\|x+y\| \leq \|x\|-\|y\| \quad \rightarrow}\end{math} (4)
+(Again, as we know that \begin{math}\mathnormal{\|x\|=\|-x\|}\end{math})
+
+\end{center}
+
+So, from (3) and (4), we can similarly get,
+
+\begin{center}
+
+\begin{math}\mathnormal{-\|x+y\| \leq \|x\| - \|y\| \leq \|x+y\|}\end{math}
+
+\end{center}
+
+Thus,
+
+\begin{center}
+
+\begin{math}\mathnormal{\|x+y\| \geq |\|x\|-\|y\||}\end{math}
+
+\end{center}
+
+\end{document}
